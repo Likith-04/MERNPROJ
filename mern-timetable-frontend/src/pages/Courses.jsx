@@ -323,7 +323,7 @@ export default function Courses() {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="mb-6 bg-white p-4 rounded shadow space-y-4"
+        className="mb-6 bg-white/80 backdrop-blur-md p-4 rounded-xl shadow-lg space-y-4"
       >
         <div className="grid grid-cols-4 gap-4">
           <input

@@ -15,11 +15,13 @@ import courseRoutes from "./routes/courseRoutes.js"
 import facultyRoutes from "./routes/facultyRoutes.js"
 import roomRoutes from "./routes/roomRoutes.js"
 import studentRoutes from "./routes/studentRoutes.js"
+import scheduleRoutes from "./routes/scheduleRoutes.js"
 
 app.use("/api/courses", courseRoutes)
 app.use("/api/faculty", facultyRoutes)
 app.use("/api/rooms", roomRoutes)
 app.use("/api/students", studentRoutes)
+app.use("/api/schedules", scheduleRoutes)
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {

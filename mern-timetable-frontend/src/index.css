@@ -1,6 +1,136 @@
+/* src/index.css - dark theme + grid background + Tailwind base */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* small helper */
-body { @apply bg-gray-50 text-gray-800; }
+
+/* -----------------------
+   Theme variables (light)
+   ----------------------- */
+:root{
+  --bg-gradient: linear-gradient(180deg, rgba(14,23,42,0.02), rgba(7,10,25,0.02));
+  --page-surface: #ffffff;
+  --muted-text: #6b7280;
+  --text: #0f172a;
+  --card-bg: rgba(255,255,255,0.88);
+  --glass-bg: rgba(255,255,255,0.6);
+  --accent: #7c3aed;
+  --shadow: 0 6px 20px rgba(2,6,23,0.08);
+}
+
+/* -----------------------
+   Dark theme variables
+   (applies when .dark class present)
+   ----------------------- */
+.dark {
+  --bg-gradient: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(6,8,15,0.6));
+  --page-surface: #071028;    /* page base (very dark blue) */
+  --muted-text: #9ca3af;      /* lighter muted text on dark bg */
+  --text: #e6eef8;            /* main text on dark bg */
+  --card-bg: rgba(8,13,22,0.6);
+  --glass-bg: rgba(14,19,30,0.5);
+  --accent: #7c3aed;
+  --shadow: 0 10px 30px rgba(2,6,23,0.6);
+}
+
+/* -----------------------
+   Global body / root styling
+   ----------------------- */
+/* using a layered background: base gradient + subtle grid overlay SVG */
+body {
+  @apply antialiased;
+  background-image:
+    /* subtle diagonal stripes for depth (low opacity) */
+    linear-gradient(135deg, rgba(255,255,255,0.02) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(255,255,255,0.02) 25%, transparent 25%),
+    /* main soft gradient */
+    var(--bg-gradient);
+  background-size: 8px 8px, 8px 8px, cover;
+  background-position: 0 0, 4px 4px, 0 0;
+  color: var(--text);
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* 🌌 Dark Gradient + Grid Background */
+.app-grid-bg {
+  @apply bg-gray-900 text-white; /* fallback for unsupported browsers */
+  background: linear-gradient(to bottom right, #0f172a, #1e293b);
+  background-size: cover;
+  min-height: 100vh;
+  color: #e5e7eb;
+  
+  /* grid pattern overlay */
+  position: relative;
+}
+/* 🌞 Light background with soft grid */
+.app-grid-light {
+  @apply bg-gray-100 text-gray-900;
+  background: linear-gradient(to bottom right, #f9fafb, #e5e7eb);
+  min-height: 100vh;
+  color: #111827;
+  position: relative;
+}
+.app-grid-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#00000008 1px, transparent 1px),
+    linear-gradient(90deg, #00000008 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+
+.app-grid-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#ffffff10 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff10 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+/* Glassmorphism for cards & header */
+.bg-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bg-card {
+  background: rgba(31, 41, 55, 0.9);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Muted text */
+.text-muted {
+  color: #9ca3af;
+}
+
+.text-primary { color: var(--accent); }
+
+/* card styles */
+.card {
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* small tweaks for table cells in dark mode */
+.table-cell {
+  padding: 0.5rem;
+}
+
+/* ensure modals stand out */
+.modal-surface {
+  background-color: var(--page-surface);
+  color: var(--text);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+/* ensure scrollbars are subtle on dark */
+::-webkit-scrollbar { height: 10px; width: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 10px; }
