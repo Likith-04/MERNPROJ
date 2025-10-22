@@ -43,18 +43,21 @@ export default function Layout() {
         <nav className="mt-3">
           {navItems.map((it) => (
             <NavLink
-              key={it.to}
-              to={it.to}
-              end={it.to === "/"}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 hover:bg-gray-200 dark:hover:bg-gray-800 ${
-                  isActive ? "bg-gray-200 dark:bg-gray-800 font-medium" : ""
-                }`
-              }
-            >
-              <div>{it.icon}</div>
-              {open && <div className="text-sm">{it.label}</div>}
-            </NavLink>
+             key={it.to}
+             to={it.to}
+             end={it.to === "/"}
+             className={({ isActive }) =>
+               `flex items-center gap-3 px-4 py-3 rounded-md transition-colors duration-200 ${
+                isActive
+                ? "bg-gray-800 text-white"        // active → dark background + white text
+                : "text-gray-300 hover:bg-gray-700 hover:text-white" // inactive → lighter text
+           }`
+         }
+       >
+           <div>{it.icon}</div>
+           {open && <div className="text-sm">{it.label}</div>}
+          </NavLink>
+
           ))}
         </nav>
 
